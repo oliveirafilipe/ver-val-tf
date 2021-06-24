@@ -13,6 +13,7 @@ import com.bcopstein.entidades.geometria.SituacaoReta;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 public class BairroTest {
     private Area a1,a2;
     private Reta reta, reta1;
@@ -50,6 +51,13 @@ public class BairroTest {
         SituacaoReta sitEsp = SituacaoReta.INTERSECTA;
         SituacaoReta sitObs = bairro.getClassificacao(reta1);
         assertEquals(sitEsp, sitObs);
+    }
+
+    @Test
+    public void shouldChangeCost(){
+        Bairro bairro = new Bairro("Auxiliadora",a2,10);
+        bairro.alteraCustoTransporte(21.5);
+        assertEquals(21.5, bairro.getCustoTransporte());
     }
 
 }

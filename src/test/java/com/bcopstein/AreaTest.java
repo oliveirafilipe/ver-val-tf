@@ -27,9 +27,29 @@ public class AreaTest {
         assertEquals(30,p.getY());
     }
 
+    @Test
+    public void foo(){
+        Area a = new Area(new Ponto(20, 30), new Ponto(40, 20));    
+        assertEquals(SituacaoReta.TODA_FORA, a.classifica(new Reta(new Ponto(40, 35), new Ponto(50, 15))));
+    }
+
     @ParameterizedTest
-    @CsvSource({"15,40,35,40,TODA_DENTRO",
-                "15, 5,35, 5,TODA_FORA"})
+    @CsvSource({
+        "9,10,9,50,TODA_FORA",
+        "61,10,61,50,TODA_FORA",
+        "10,51,60,51,TODA_FORA",
+        "10,9,60,9,TODA_FORA",
+        //
+        "10,50,60,50,TODA_DENTRO",
+        "10,10,10,50,TODA_DENTRO",
+        "60,10,60,50,TODA_DENTRO",
+        "10,10,60,10,TODA_DENTRO",
+        //
+        "70,60,0,0,INTERSECTA",
+        "70,60,35,30,INTERSECTA",
+        // Caso de falha descoberto realizando teste de roteiro
+        "60,60,65,5,TODA_FORA"
+    })
     public void testaClassifica(int x1,int y1,int x2,int y2,String classificacao){
         Reta reta = new Reta(new Ponto(x1,y1), new Ponto(x2,y2));
         SituacaoReta sitEsp = switch(classificacao){
