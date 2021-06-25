@@ -35,6 +35,13 @@ public class PassageiroTest {
         assertEquals(actualMessageZero, expectedMessage);
     }
 
+    @Test
+    public void infoPontuacaoShouldUpateForValidValue(){
+        passageiro.infoPontuacao(8);
+        assertEquals(16, passageiro.getPontuacaoAcumulada());
+        assertEquals(2, passageiro.getQtdadeAvaliacoes());
+    }
+
     @ParameterizedTest
     @CsvSource({
         "40, 20, 2",

@@ -1,6 +1,7 @@
 package com.bcopstein;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.bcopstein.entidades.geometria.Area;
 import com.bcopstein.entidades.geometria.Ponto;
@@ -25,12 +26,6 @@ public class AreaTest {
         Ponto p = area.pontoCentral();
         assertEquals(35,p.getX());
         assertEquals(30,p.getY());
-    }
-
-    @Test
-    public void foo(){
-        Area a = new Area(new Ponto(20, 30), new Ponto(40, 20));    
-        assertEquals(SituacaoReta.TODA_FORA, a.classifica(new Reta(new Ponto(40, 35), new Ponto(50, 15))));
     }
 
     @ParameterizedTest
@@ -60,5 +55,15 @@ public class AreaTest {
         };
         SituacaoReta sitObs = area.classifica(reta);
         assertEquals(sitEsp, sitObs);
+    }
+
+    @Test
+    public void shouldThrowErrorIfNotMainDiagonal(){
+        Exception exception = assertThrows(IllegalArgumentException.class, () ->  { new Area(new Ponto(60,10), new Ponto(10,50)); });
+
+        String expectedMessage = "O retangulo deve ser definido pela diagonal principal";
+        String actualMessage = exception.getMessage();
+
+        assertEquals(actualMessage, expectedMessage);
     }
 }
